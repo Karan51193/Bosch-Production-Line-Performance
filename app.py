@@ -24,8 +24,8 @@ os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
 
 app = Flask(__name__)
-# dashboard.bind(app)
-# CORS(app)
+dashboard.bind(app)
+CORS(app)
 
 
 @app.route("/", methods=['GET'])
@@ -120,7 +120,7 @@ def predictRouteClient():
         return Response("Error Occurred! %s" % e)
 
 
-# port = int(os.getenv("PORT", 8000))
+port = int(os.getenv("PORT", 8000))
 if __name__ == "__main__":
     app.run(debug=True)
 

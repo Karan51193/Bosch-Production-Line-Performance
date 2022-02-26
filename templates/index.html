@@ -127,7 +127,7 @@
 					<br/>
 					<form action="/predict" method="POST" id="datafetch_for m" enctype="multipart/form-data">
 						<div class="form-group files color">
-							<input type="text" name ="file_path" class="form-control" rows="5" placeholder="Give path of .csv file" required>
+							<input type="file" name ="file" class="form-control" rows="5" placeholder="Give path of .csv file" required>
 							<input type="submit">
 							<p>Guidelines: <p>
 							<p>1. Ensure inputs include numerical,date and categorical in a single .csv spreadsheet.<p>
@@ -148,14 +148,17 @@
 						<p>Top 5 predictions are...<p>
 						<div class="json-result">
 						{{top_results}}
-							
+
 						</div>
+							}
 					</div>
 				</div>
 			</div>						
 		</div>
 	</section>
-
+<!--   					<body>
+    					<a href="/download"><button class='btn btn-default'>Download</button></a>
+  					</body> -->
 	<!-- Footer -->
 	<!-- footer class="footer">
 		<div class="container-fluid">

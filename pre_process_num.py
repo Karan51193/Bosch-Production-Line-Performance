@@ -42,10 +42,10 @@ def pre_process_num(df):#Pass the dataframe
 	print("Row count",rowcount)
 	
 	#To decide chunk size:
-	if rowcount>10:
-		chunksize=rowcount//10
+	if rowcount>5:
+		chunksize=rowcount//5
 	else:
-		chunksize=1
+		chunksize=5
 
 	row_start=0#Initialize row_start index
 	while row_start<rowcount:

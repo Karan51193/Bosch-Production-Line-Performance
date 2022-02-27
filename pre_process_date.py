@@ -299,8 +299,8 @@ def pre_process_date(df,file):#Pass the dataframe
 
 
   #To decide chunk size:
-  if rowcount>10:
-    chunksize=rowcount//10
+  if rowcount>5:
+    chunksize=rowcount//5
   else:
     chunksize=1
 

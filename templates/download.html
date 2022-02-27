@@ -130,24 +130,23 @@
 							<input type="file" name ="file" class="form-control" rows="5" placeholder="Give path of .csv file" required>
 							<input type="submit">
 							<br/>
-							<p style="color:blue; font: 12px Verdana, sans-serif; font-weight: bold;">Note:Upload file ensure that inputs include numerical,date features in a single spreadsheet .CSV format <p>
+							<p style="color:blue; font: 12px Verdana, sans-serif; font-weight: bold;">Note:Ensure inputs include numerical,date and categorical in a single spreadsheet .CSV format <p>
 						</div>
 
 					</form>
 				</div>
 				<div class="res-container  col-md-6 col-xs-12">
 					<div class="result-box shadow rounded-lg">
-						<h6 class="title">Your results will be downloaded once done :)</h6>
-<!-- 						{% for table in tables %}
+						<h6 class="title">Sample results are below</h6>
+						{% for table in tables %}
             			{{titles[loop.index]}}
             			{{ table|safe }}
-						{% endfor %} -->
-						<div class="container" align="Right">
+						{% endfor %}
+						<div class="json-result"><!-- 						{{top_results}}
 
-<!--     					<a href="/return_file" target="blank"><button class='btn btn-default'>
-    					Download</button></a> -->
-
+ -->
 						</div>
+							}
 					</div>
 				</div>
 			</div>						

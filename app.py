@@ -60,9 +60,27 @@ def predictRouteClient():
 
             print("Reading csvfile for num features...")
             print(type(file))
-            df=pd.read_csv(file)
+            try:
+                df=pd.read_csv(file)
+                df=df.astype(float)
+                df=df.astype({"Id":int})
+
+            except:
+                # return "Input is not readable format!"
+                raise Exception("Input is not readable format!")
+
+
+            #Raise error if data point count exceeds limit set (this is limited by deployment platform chosen, which requires faster API response)
+            if len(df)>20:
+               raise Exception("Ensure number of datapoints is 20 or less")
+
+
+            #Preprocessing numerical:--
             df_num=pre_process_num.pre_process_num(df)
             print(type(df_num))
+
+
+
 
             print("Reading csv file for date features...")
             print(type(file))
@@ -108,6 +126,7 @@ def predictRouteClient():
             resp = make_response(result_df.to_csv())
             resp.headers["Content-Disposition"] = "attachment; filename=result.csv"
             resp.headers["Content-Type"] = "text/csv"
+            
             # render_template('index.html',tables=[print_table.to_html(classes='data')], titles=print_table.columns.values)
 
 

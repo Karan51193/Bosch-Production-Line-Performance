@@ -320,37 +320,54 @@ def pre_process_date(df,file):#Pass the dataframe
   rowcount=len(df)
   print("Row count",rowcount)
 
+  ################Chunk wise preprocessing starts###################
+  # #To decide chunk size:
+  # if rowcount>5:
+  #   chunksize=rowcount//5
+  # else:
+  #   chunksize=1
 
-  #To decide chunk size:
+
+  # row_start=0#Initialize row_start index
+  # while row_start<rowcount:
+
+  #   try:
+  #     if (row_start+chunksize)<rowcount:
+  #       row_end=row_start+chunksize#Increment by chunk size
+  #       chunk=df.iloc[row_start:row_end]#Pick chunk of rows
+  #       chunk=chunk[date_fea]
+  #       row_start=row_end
+  #     else:
+  #       row_end=rowcount#Last row is considered
+  #       chunk=df.iloc[row_start:row_end]
+  #       chunk=chunk[date_fea]
+  #       row_start=row_start+1#Increment the start index so that loop break is ensured
+
+  #   except:
+  #     # print("Missing Features in input file!!")
+  #     raise Exception("Missing Features in input file!!")
+  #     break
+  #   print("\n\n")
+  #   print("Processing rows upto ",row_end)
+
+  #   chunk_processed=date_final(chunk,chunksize,df,is_train=False)
+  #   df_date_test_final=pd.concat([df_date_test_final,chunk_processed])
+  ################Chunk wise preprocessing ends###################
+
+
+  #Single pre-processing starts here--
+  # To decide chunk size:
   if rowcount>5:
     chunksize=rowcount//5
   else:
     chunksize=1
+  try:
+    chunk=df#Pick chunk
+    chunk=chunk[date_fea]
+  except:
+    raise Exception("Missing Features in input file!!")
 
 
-  row_start=0#Initialize row_start index
-  while row_start<rowcount:
-
-    try:
-      if (row_start+chunksize)<rowcount:
-        row_end=row_start+chunksize#Increment by chunk size
-        chunk=df.iloc[row_start:row_end]#Pick chunk of rows
-        chunk=chunk[date_fea]
-        row_start=row_end
-      else:
-        row_end=rowcount#Last row is considered
-        chunk=df.iloc[row_start:row_end]
-        chunk=chunk[date_fea]
-        row_start=row_start+1#Increment the start index so that loop break is ensured
-
-    except:
-      # print("Missing Features in input file!!")
-      raise Exception("Missing Features in input file!!")
-      break
-    print("\n\n")
-    print("Processing rows upto ",row_end)
-
-    chunk_processed=date_final(chunk,chunksize,df,is_train=False)
-    df_date_test_final=pd.concat([df_date_test_final,chunk_processed])
+  df_date_test_final=date_final(chunk,chunksize,df,is_train=False)
 
   return df_date_test_final

@@ -65,36 +65,53 @@ def pre_process_num(df):#Pass the dataframe
 	rowcount=len(df)
 	print("Row count",rowcount)
 	
-	#To decide chunk size:
-	if rowcount>5:
-		chunksize=rowcount//5
-	else:
-		chunksize=5
 
-	row_start=0#Initialize row_start index
-	while row_start<rowcount:
+	################Chunk wise preprocessing starts###################
+	# #To decide chunk size:
+	# if rowcount>5:
+	# 	chunksize=rowcount//5
+	# else:
+	# 	chunksize=1
 
-		try:
-			if (row_start+chunksize)<rowcount:
-				row_end=row_start+chunksize#Increment by chunk size
-				chunk=df.iloc[row_start:row_end]#Pick chunk of rows
-				chunk=chunk[num_fea]
-				row_start=row_end
-			else:
-				row_end=rowcount#Last row is considered
-				chunk=df.iloc[row_start:row_end]
-				chunk=chunk[num_fea]
-				row_start=row_start+1#Increment the start index so that loop break is ensured
+	# row_start=0#Initialize row_start index
+	# while row_start<rowcount:
 
-		except:
-			print("Missing Features in input file!!")
-			break
-		print("\n\n")
-		print("Processing Row End ",row_end)
+	# 	try:
+	# 		if (row_start+chunksize)<rowcount:
+	# 			row_end=row_start+chunksize#Increment by chunk size
+	# 			chunk=df.iloc[row_start:row_end]#Pick chunk of rows
+	# 			chunk=chunk[num_fea]
+	# 			row_start=row_end
+	# 		else:
+	# 			row_end=rowcount#Last row is considered
+	# 			chunk=df.iloc[row_start:row_end]
+	# 			chunk=chunk[num_fea]
+	# 			row_start=row_start+1#Increment the start index so that loop break is ensured
+
+	# 	except:
+	# 		# print("Missing Features in input file!!")
+	# 		raise Exception("Missing Features in input file!!")
+	# 		break
+	# 	print("\n\n")
+	# 	print("Processing Row End ",row_end)
 
 
 
-		chunk_processed=chunk.fillna(0)
-		df_num_test_final=pd.concat([df_num_test_final,chunk_processed])
+	# 	chunk_processed=chunk.fillna(0)
+	# 	df_num_test_final=pd.concat([df_num_test_final,chunk_processed])
+	################Chunk wise preprocessing ends###################
+
+	#Single preprocessing
+	try:
+		chunk=df #Pick chunk of rows
+		chunk=chunk[num_fea]
+
+	except:
+		# print("Missing Features in input file!!")
+		raise Exception("Missing Features in input file!!")
+
+
+	df_num_test_final=chunk.fillna(0)
+
 
 	return df_num_test_final
